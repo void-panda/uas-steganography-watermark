@@ -51,17 +51,16 @@ function decodeMessageFromImage(image, callback) {
         let idx = i * 4;
         binMsg += (data[idx] & 1).toString();
     }
-    // Convert binary to string (raw, tanpa stop di null)
-    let rawChars = [];
+    // Convert binary to string, stop at null char
+    let chars = [];
     for (let i = 0; i < binMsg.length; i += 8) {
         let byte = binMsg.slice(i, i + 8);
         if (byte.length < 8) break;
         let charCode = parseInt(byte, 2);
-        rawChars.push(String.fromCharCode(charCode));
+        if (charCode === 0) break; // End of message
+        chars.push(String.fromCharCode(charCode));
     }
-    callback({
-        raw: rawChars.join('')
-    });
+    callback(chars.join(''));
 }
 
 // DOM handlers
@@ -161,9 +160,9 @@ window.onload = function() {
                 const imgElem = document.createElement('img');
                 imgElem.src = e.target.result;
                 decodedImgDiv.appendChild(imgElem);
-                decodeMessageFromImage(img, function(result) {
-                    outputDiv.innerHTML = '<div style="font-weight:bold;font-size:1.1em;margin-bottom:8px;">Hidden message</div>' +
-                        '<textarea readonly rows="10" style="background:#fafafa;border:1px solid #eee;padding:8px 10px;border-radius:5px;width:100%;overflow-x:auto;white-space:pre-wrap;word-break:break-all;">' + result.raw.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</textarea>';
+                decodeMessageFromImage(img, function(message) {
+                    outputDiv.innerHTML = '<div style="font-weight:bold;font-size:1.1em;margin-bottom:8px;">Hasil Dekripsi:</div>' +
+                        '<div><span style="font-weight:600;">Pesan Rahasia:</span> <span style="color:#007bff;">' + (message ? message : '(tidak ada pesan)') + '</span></div>';
                 });
             };
             img.src = e.target.result;
