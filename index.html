@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Encoder/Decoder with Watermark</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Image Encoder/Decoder dengan Watermark</h1>
+        <div class="tabs">
+            <button class="tab-btn active" id="tab-encode">Encode</button>
+            <button class="tab-btn" id="tab-decode">Decode</button>
+        </div>
+        <div id="encode-section">
+            <div class="feature-box">
+                <h2>Encode</h2>
+                <input type="file" id="encode-image-input" accept="image/*">
+                <div id="encode-image-preview"></div>
+                <input type="text" id="encode-message-input" placeholder="Enter secret message">
+                <input type="text" id="encode-watermark-input" placeholder="Enter watermark text">
+                <button id="encode-btn">Encode & Add Watermark</button>
+                <div id="encoded-image-output"></div>
+                <a id="download-encoded-image" style="display:none;" download="encoded-image.png">Download Encoded Image</a>
+            </div>
+        </div>
+        <div id="decode-section" style="display:none;">
+            <div class="feature-box">
+                <h2>Decode</h2>
+                <input type="file" id="decode-image-input" accept="image/*">
+                <div id="decode-image-preview"></div>
+                <button id="decode-btn">Decode Message</button>
+                <div id="decoded-image-output"></div>
+                <div id="decoded-message-output"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
